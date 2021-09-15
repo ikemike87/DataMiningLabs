@@ -10,11 +10,33 @@ Original file is located at
 import pandas as pd
 import numpy as np
 
-data1 = pd.read_csv("tableconvert_csv_so70jx.csv")
-data1Mean = np.mean(data1)
+data = pd.read_csv("/content/drive/MyDrive/Data Mining section 1 0.0 - Data.csv")
 
-pd.DataFrame.to_csv("data1Mean")
+data.dtypes
 
-print(data1)
-print(data1Mean)
+data["Mathematical Passion"].describe()
+
+irisData = pd.read_csv("/content/drive/MyDrive/tableconvert_csv_so70jx.csv")
+
+print(irisData)
+
+irisData[['petal.length','petal.width','sepal.length','sepal.width']].describe()
+
+irisData[["petal.length", "variety"]].groupby("variety").std()
+
+irisData["variety"].value_counts()
+
+irisData.to_json("jsondata.json")
+
+irisData[irisData["variety"]=="Setosa"]
+
+irisData[irisData["variety"]=="Virginica"]
+
+ser = pd.Series(irisData["petal.length"])
+
+ser[~ser.isin(ser.value_counts().index[:2])] = "Other"
+ser
+
+pd.qcut(ser, q=[0, .10, .20, .3, .4, .5, .6, .7, .8, .9, 1], 
+        labels=['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'])
 
